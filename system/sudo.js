@@ -71,7 +71,6 @@ class Sudo{
 			}
 		}
 		app.all("*", function (req, res) {
-			console.log("at *");
 			var routeindex = req.path;
 			var controllerArr = routes[routeindex];
 			if(typeof(controllerArr)=="undefined"){
@@ -83,15 +82,11 @@ class Sudo{
 			var controllerFunction = controllerArr[1];
 			
 			var file = path.dirname(__filename)+'/../controllers/'+controllerFileName+'.js';
-			var fileexists = false;
 			//check if controller file exists
 			if (fs.existsSync(file)) {
 				var controllerClass = require(file);
-				console.log(fs.existsSync(file));
-				fileexists = true;
 			}
-			if(fileexists==false){
-				console.log(fileexists);
+			else{
 				routeindex = "*";
 				if(controllerFileName==""){ //if web root
 					res.send("Route for / not found");
