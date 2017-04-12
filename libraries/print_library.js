@@ -6,6 +6,9 @@ class Print_library extends Library{
 	ob(str){
 		this.out += str;
 	}
+	getob(){
+		return this.out;
+	}
 	send(str){
 		this.res.send(this.out+str);
 	}
