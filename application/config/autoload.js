@@ -1,4 +1,4 @@
 var autoload = {};
 autoload['helpers'] = ["functions"];
-autoload['models'] = [];
+autoload['models'] = ["main_model"];
 module.exports = autoload;

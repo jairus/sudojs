@@ -1,6 +1,8 @@
 class Main extends Controller{
 	constructor(args){
+		console.log("call super");
 		super(args);
+
 		//load some models and libraries
 		this.main_model = this.load.model("main_model");
 		this.main_library = this.load.library("main_library");
@@ -10,6 +12,7 @@ class Main extends Controller{
 	index(){
 		var res = this.res;
 		var route = this.route;
+		this.main_model.hello();
 		debug(this, function(out){
 			res.send(out);
 		});

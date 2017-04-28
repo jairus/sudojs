@@ -73,6 +73,19 @@ class Sudo{
 					args.res = pres;
 					//loader object
 					args.load = (new loader(args));
+					//auto load models
+					/*
+					for(autoloadindex in autoload){
+						console.log(autoloadindex);
+						if(autoloadindex=="models"){
+							console.log(autoloadindex);
+							var load = autoload[autoloadindex];
+							for(var i=0; i<load.length; i++){
+								args[load[i]] = args.load.model(load[i]);
+							}
+						}
+					}
+					*/
 					controller = new controllerClass(args);
 					if(typeof(controller)=="undefined"){
 						pres.send("<b>"+controllerFileName+"</b> not found");
@@ -156,6 +169,19 @@ class Sudo{
 			args.res = pres;
 			//loader object
 			args.load = (new loader(args));
+			//auto load models
+			/*
+			for(autoloadindex in autoload){
+				console.log(autoloadindex);
+				if(autoloadindex=="models"){
+					console.log(autoloadindex);
+					var load = autoload[autoloadindex];
+					for(var i=0; i<load.length; i++){
+						args[load[i]] = args.load.model(load[i]);
+					}
+				}
+			}
+			*/
 			var controller = new controllerClass(args);
 			if(typeof(controller[controllerFunction])=="function"){
 				var funcargs = [];
