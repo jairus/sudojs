@@ -3,6 +3,8 @@ class Debug_library extends Library{
 		super(args);
 	}
 	show(){
+		var res = this.res;
+		var req = this.req;
 		var route = this.route;
 		var out = "ROUTE: "+route+"<br />";
 		out += "CONTROLLER FILE PATH: "+this.args.controllerFilePath+"<br />";
@@ -17,7 +19,7 @@ class Debug_library extends Library{
 		form.parse(req, function(err, fields, files) {
 			// fields fields fields
 			out += "multiparty: "+fields+"<br />";
-			print(out);
+			res.send(out);
 		});
 	}
 }

@@ -5,14 +5,14 @@ class Main extends Controller{
 		this.main_model = this.load.model("main_model");
 		this.main_library = this.load.library("main_library");
 		this.debug = this.load.library("debug_library");
-		this.print = this.load.library("print_library");
 	}
 	//default 
 	index(){
-		this.main_model.hello(); //see in console 'Hello from Main_model'
-		this.main_library.hello(); //see in console 'Hello from Main_library'
+		var res = this.res;
 		var route = this.route;
-		this.debug.show();	
+		debug(this, function(out){
+			res.send(out);
+		})
 	}
 	//wee page
 	wee(){

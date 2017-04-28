@@ -6,18 +6,18 @@ class Sub extends Controller{
 	index(){
 		var req = this.req;
 		var res = this.res;
-		print("Sub Index!");
+		res.send("Sub Index!");
 	}
 	hello(){
 		var req = this.args.req;
 		var res = this.args.res;
-		print("Hello!");
+		res.send("Hello!");
 	}
 	ola(args){
 		var req = this.args.req;
 		var res = this.args.res;
 		header('Content-Type', 'application/json');
-		print(JSON.stringify(args));
+		res.send(JSON.stringify(args));
 	}
 }
 //export the class

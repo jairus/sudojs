@@ -11,6 +11,7 @@ Controller = require('./baseclasses.js');
 Model = require('./baseclasses.js');
 Library = require('./baseclasses.js');
 require('./globals.js');
+
 class Sudo{
 	constructor(app){
 		var port = config['port'];
@@ -43,12 +44,11 @@ class Sudo{
 				controllerArr = controllerArr.split("/");
 				cbBind.controllerArr = controllerArr;
 				app.all(routeindex, function (preq, pres) {
+					console.log("routeindex: "+this.routeindex+", path: "+preq.path)
 					if(printerror.length>0){
 						pres.send(printerror[0]);
 						return;
 					}
-					req = preq;
-					res = pres;
 					var routeindex = this.routeindex;
 					var controller = controllers[this.routeindex];	
 					var controllerArr = this.controllerArr;
@@ -100,14 +100,13 @@ class Sudo{
 							return;
 						}
 					}
-					psend();
+					//psend(pres);
 					return;
 				}.bind(cbBind));
 			}
 		}
 		app.all("*", function (preq, pres) {
-			req = preq;
-			res = pres;
+			console.log("routeindex: *, path: "+preq.path)
 			var routeindex = preq.path;
 			var controllerArr = routes[routeindex];
 			if(typeof(controllerArr)=="undefined"){
@@ -171,7 +170,7 @@ class Sudo{
 				pres.send("<b>"+controllerFunction+"</b> in controller <b>"+controllerFileName+".js</b> is not a function");
 				return;
 			}
-			psend();
+			//psend(pres);
 			return;
 		});
 		
