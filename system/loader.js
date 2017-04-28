@@ -36,7 +36,7 @@ class loader{
 		if(last3.toLowerCase()!=".js"){
 			dotjs = ".js";
 		}
-		var file = path.dirname(__filename)+'/../'+folder+'/'+name+dotjs;
+		var file = path.dirname(__filename)+'/../application/'+folder+'/'+name+dotjs;
 		if (fs.existsSync(file)) {
 			var libraryClass = require(file);
 			return new libraryClass(this.args);

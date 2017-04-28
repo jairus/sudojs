@@ -1,4 +1,4 @@
-var Controller = require('../system/base.js');
+var Controller = require('../../system/base.js');
 class Main extends Controller{
 	constructor(args){
 		super(args);

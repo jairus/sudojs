@@ -1,4 +1,4 @@
-var Library = require('../system/base.js');
+var Library = require('../../system/base.js');
 class Print_library extends Library{
 	constructor(args){
 		super(args);

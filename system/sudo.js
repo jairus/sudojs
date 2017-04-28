@@ -1,6 +1,8 @@
 //author: Jairus Bondoc
 //class: Sudo
 //description: Code Igniter inspired class to load controllers from routes array config
+
+
 class Sudo{
 	constructor(config, routes, app){
 		var port = config['port'];
@@ -22,7 +24,7 @@ class Sudo{
 					var controllerArr = this.controllerArr;
 					var controllerFileName = controllerArr[0];					
 					var controllerFunction = controllerArr[1];
-					var file = path.dirname(__filename)+'/../controllers/'+controllerFileName+'.js';
+					var file = path.dirname(__filename)+'/../application/controllers/'+controllerFileName+'.js';
 					//check if controller file exists
 					if (fs.existsSync(file)) {
 						var controllerClass = require(file);
@@ -81,7 +83,7 @@ class Sudo{
 			var controllerFileName = controllerArr[0];
 			var controllerFunction = controllerArr[1];
 			
-			var file = path.dirname(__filename)+'/../controllers/'+controllerFileName+'.js';
+			var file = path.dirname(__filename)+'/../application/controllers/'+controllerFileName+'.js';
 			//check if controller file exists
 			if (fs.existsSync(file)) {
 				var controllerClass = require(file);
@@ -100,7 +102,7 @@ class Sudo{
 				controllerArr = controllerArr.split("/");
 				controllerFileName = controllerArr[0];
 				controllerFunction = controllerArr[1];
-				file = path.dirname(__filename)+'/../controllers/'+controllerFileName+'.js';
+				file = path.dirname(__filename)+'/../application/controllers/'+controllerFileName+'.js';
 				//check if controller file exists
 				if (fs.existsSync(file)) {
 					var controllerClass = require(file);

@@ -1,4 +1,4 @@
-var Model = require('../system/base.js');
+var Model = require('../../system/base.js');
 class Main_model extends Model{
 	constructor(args){
 		super(args);
