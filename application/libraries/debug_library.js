@@ -17,7 +17,7 @@ class Debug_library extends Library{
 		form.parse(req, function(err, fields, files) {
 			// fields fields fields
 			out += "multiparty: "+fields+"<br />";
-			res.send(out);
+			print(out);
 		});
 	}
 }

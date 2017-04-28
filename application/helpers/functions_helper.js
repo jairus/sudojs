@@ -1,0 +1,3 @@
+help = function(){
+	print("help");
+}

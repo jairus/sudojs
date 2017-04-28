@@ -1,24 +1,40 @@
 //author: Jairus Bondoc
 //class: Sudo
 //description: Code Igniter inspired class to load controllers from routes array config
+
+//global variables
 config = require('../application/config/config.js');
 autoload = require('../application/config/autoload.js');
 routes = require('../application/config/routes.js');
-Controller = require('./base.js');
-Model = require('./base.js');
-Library = require('./base.js');
-
-req = "";
-res = "";
-
+//global base classes
+Controller = require('./baseclasses.js');
+Model = require('./baseclasses.js');
+Library = require('./baseclasses.js');
+require('./globals.js');
 class Sudo{
 	constructor(app){
 		var port = config['port'];
 		var routeindex;
+		var autoloadindex;
 		var controllers = {};
 		var fs = require('fs');
 		var path = require('path');
 		var loader = require('./loader.js');
+		var printerror = [];
+		for(autoloadindex in autoload){
+			if(autoloadindex=="helpers"){
+				var load = autoload[autoloadindex];
+				for(var i=0; i<load.length; i++){
+					try{
+						require('../application/helpers/'+load[i]+'_helper.js');
+					}
+					catch(e){
+						printerror.push(e.message);
+						break;
+					}
+				}
+			}
+		}
 		for(routeindex in routes){
 			if(routeindex!="*"){
 				var cbBind = {};
@@ -27,6 +43,10 @@ class Sudo{
 				controllerArr = controllerArr.split("/");
 				cbBind.controllerArr = controllerArr;
 				app.all(routeindex, function (preq, pres) {
+					if(printerror.length>0){
+						pres.send(printerror[0]);
+						return;
+					}
 					req = preq;
 					res = pres;
 					var routeindex = this.routeindex;
@@ -40,7 +60,7 @@ class Sudo{
 						var controllerClass = require(file);
 					}
 					else{
-						res.send("Controller <b>"+controllerFileName+".js</b> file not found");
+						pres.send("Controller <b>"+controllerFileName+".js</b> file not found");
 						return;
 					}
 					if(typeof(controllerFunction)=="undefined"||controllerFunction==""){
@@ -57,6 +77,7 @@ class Sudo{
 					controller = new controllerClass(args);
 					if(typeof(controller)=="undefined"){
 						pres.send("<b>"+controllerFileName+"</b> not found");
+						return;
 					}
 					else{
 						if(typeof(controller[controllerFunction])=="function"){
@@ -75,9 +96,11 @@ class Sudo{
 							controller[controllerFunction](funcargs);
 						}
 						else{
-							res.send("<b>"+controllerFunction+"</b> in controller <b>"+controllerFileName+".js</b> is not a function");
+							pres.send("<b>"+controllerFunction+"</b> in controller <b>"+controllerFileName+".js</b> is not a function");
+							return;
 						}
 					}
+					psend();
 					return;
 				}.bind(cbBind));
 			}
@@ -104,6 +127,7 @@ class Sudo{
 				routeindex = "*";
 				if(controllerFileName==""){ //if web root
 					pres.send("Route for / not found");
+					return;
 				}
 				//catch all
 				else if(typeof(routes[routeindex])=="undefined"){
@@ -145,7 +169,9 @@ class Sudo{
 			}
 			else{
 				pres.send("<b>"+controllerFunction+"</b> in controller <b>"+controllerFileName+".js</b> is not a function");
+				return;
 			}
+			psend();
 			return;
 		});
 		

@@ -12,17 +12,7 @@ class Main extends Controller{
 		this.main_model.hello(); //see in console 'Hello from Main_model'
 		this.main_library.hello(); //see in console 'Hello from Main_library'
 		var route = this.route;
-		this.debug.show();
-		return;
-		
-		//buffered printing
-		this.print.ob("hello world");
-		this.print.send();
-		
-		//json return printing 
-		res.setHeader('Content-Type', 'application/json');
-		var ret = {};
-		res.send(JSON.stringify(ret));
+		this.debug.show();	
 	}
 	//wee page
 	wee(){
@@ -34,9 +24,9 @@ class Main extends Controller{
 		this.print.send();
 		
 		//json return printing 
-		res.setHeader('Content-Type', 'application/json');
+		header('Content-Type', 'application/json');
 		var ret = {};
-		res.send(JSON.stringify(ret));
+		print(JSON.stringify(ret));
 	}
 }
 //export the class
