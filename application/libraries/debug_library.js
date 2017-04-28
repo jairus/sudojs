@@ -1,12 +1,9 @@
-var Library = require('../../system/base.js');
 class Debug_library extends Library{
 	constructor(args){
 		super(args);
 	}
 	show(){
 		var route = this.route;
-		var res = this.res;
-		var req = this.req;
 		var out = "ROUTE: "+route+"<br />";
 		out += "CONTROLLER FILE PATH: "+this.args.controllerFilePath+"<br />";
 		out += "FUNCTION: "+this.args.controllerFunction+"<br />";

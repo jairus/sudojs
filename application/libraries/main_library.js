@@ -1,4 +1,3 @@
-var Library = require('../../system/base.js');
 class Main_library extends Library{
 	constructor(args){
 		super(args);

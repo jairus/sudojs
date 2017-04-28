@@ -1,10 +1,18 @@
 //author: Jairus Bondoc
 //class: Sudo
 //description: Code Igniter inspired class to load controllers from routes array config
+config = require('../application/config/config.js');
+autoload = require('../application/config/autoload.js');
+routes = require('../application/config/routes.js');
+Controller = require('./base.js');
+Model = require('./base.js');
+Library = require('./base.js');
 
+req = "";
+res = "";
 
 class Sudo{
-	constructor(config, routes, app){
+	constructor(app){
 		var port = config['port'];
 		var routeindex;
 		var controllers = {};
@@ -18,7 +26,9 @@ class Sudo{
 				var controllerArr = routes[routeindex];
 				controllerArr = controllerArr.split("/");
 				cbBind.controllerArr = controllerArr;
-				app.all(routeindex, function (req, res) {
+				app.all(routeindex, function (preq, pres) {
+					req = preq;
+					res = pres;
 					var routeindex = this.routeindex;
 					var controller = controllers[this.routeindex];	
 					var controllerArr = this.controllerArr;
@@ -40,21 +50,21 @@ class Sudo{
 					args.controllerFilePath = file;
 					args.controllerFunction = controllerFunction;
 					args.route = routeindex;
-					args.req = req;
-					args.res = res;
+					args.req = preq;
+					args.res = pres;
 					//loader object
 					args.load = (new loader(args));
 					controller = new controllerClass(args);
 					if(typeof(controller)=="undefined"){
-						res.send("<b>"+controllerFileName+"</b> not found");
+						pres.send("<b>"+controllerFileName+"</b> not found");
 					}
 					else{
 						if(typeof(controller[controllerFunction])=="function"){
 							var funcargs = [];
 							var param;
 							var n = 0;
-							for(param in req.params){
-								funcargs[n] = req.params[param];
+							for(param in preq.params){
+								funcargs[n] = preq.params[param];
 								n++;
 							}
 							n=0;
@@ -72,8 +82,10 @@ class Sudo{
 				}.bind(cbBind));
 			}
 		}
-		app.all("*", function (req, res) {
-			var routeindex = req.path;
+		app.all("*", function (preq, pres) {
+			req = preq;
+			res = pres;
+			var routeindex = preq.path;
 			var controllerArr = routes[routeindex];
 			if(typeof(controllerArr)=="undefined"){
 				controllerArr = routeindex;
@@ -91,11 +103,11 @@ class Sudo{
 			else{
 				routeindex = "*";
 				if(controllerFileName==""){ //if web root
-					res.send("Route for / not found");
+					pres.send("Route for / not found");
 				}
 				//catch all
 				else if(typeof(routes[routeindex])=="undefined"){
-					res.send("Route for * not found");
+					pres.send("Route for * not found");
 					return;
 				}
 				controllerArr = routes[routeindex];
@@ -108,7 +120,7 @@ class Sudo{
 					var controllerClass = require(file);
 				}
 				else{
-					res.send("Controller <b>"+controllerFileName+".js</b> file not found");
+					pres.send("Controller <b>"+controllerFileName+".js</b> file not found");
 					return;
 				}
 			}
@@ -119,8 +131,8 @@ class Sudo{
 			args.controllerFilePath = file;
 			args.controllerFunction = controllerFunction;
 			args.route = routeindex;
-			args.req = req;
-			args.res = res;
+			args.req = preq;
+			args.res = pres;
 			//loader object
 			args.load = (new loader(args));
 			var controller = new controllerClass(args);
@@ -132,7 +144,7 @@ class Sudo{
 				controller[controllerFunction](funcargs);
 			}
 			else{
-				res.send("<b>"+controllerFunction+"</b> in controller <b>"+controllerFileName+".js</b> is not a function");
+				pres.send("<b>"+controllerFunction+"</b> in controller <b>"+controllerFileName+".js</b> is not a function");
 			}
 			return;
 		});

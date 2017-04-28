@@ -1,4 +1,3 @@
-var Controller = require('../system/base.js');
 class Sub extends Controller{
 	constructor(args){
 		super(args);

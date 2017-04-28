@@ -1,4 +1,3 @@
-var Controller = require('../../system/base.js');
 class Main extends Controller{
 	constructor(args){
 		super(args);
@@ -10,14 +9,12 @@ class Main extends Controller{
 	}
 	//default 
 	index(){
-		var req = this.req;
-		var res = this.res;
 		this.main_model.hello(); //see in console 'Hello from Main_model'
 		this.main_library.hello(); //see in console 'Hello from Main_library'
 		var route = this.route;
 		this.debug.show();
 		return;
-
+		
 		//buffered printing
 		this.print.ob("hello world");
 		this.print.send();
@@ -29,8 +26,6 @@ class Main extends Controller{
 	}
 	//wee page
 	wee(){
-		var req = this.req;
-		var res = this.res;
 		this.debug.show();
 		return;
 		
