@@ -44,7 +44,6 @@ class Sudo{
 				controllerArr = controllerArr.split("/");
 				cbBind.controllerArr = controllerArr;
 				app.all(routeindex, function (preq, pres) {
-					console.log("routeindex: "+this.routeindex+", path: "+preq.path)
 					if(printerror.length>0){
 						pres.send(printerror[0]);
 						return;
@@ -100,13 +99,12 @@ class Sudo{
 							return;
 						}
 					}
-					//psend(pres);
+					console.log("routeindex: "+this.routeindex+", path: "+preq.path, ", controller file: "+file)
 					return;
 				}.bind(cbBind));
 			}
 		}
 		app.all("*", function (preq, pres) {
-			console.log("routeindex: *, path: "+preq.path)
 			var routeindex = preq.path;
 			var controllerArr = routes[routeindex];
 			if(typeof(controllerArr)=="undefined"){
@@ -170,7 +168,7 @@ class Sudo{
 				pres.send("<b>"+controllerFunction+"</b> in controller <b>"+controllerFileName+".js</b> is not a function");
 				return;
 			}
-			//psend(pres);
+			console.log("routeindex: *, path: "+preq.path, ", controller file: "+file)
 			return;
 		});
 		
