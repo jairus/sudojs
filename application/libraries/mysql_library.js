@@ -11,15 +11,15 @@ class MySQL_library extends SD_Library{
 		  user     : SD.db[db]['username'],
 		  password : SD.db[db]['password'],
 		  database : SD.db[db]['database']
-		});	
+		});
 	}
 	query(sql, callback){
-		this.connection.connect();
+		this.connection.connect();	
 		this.connection.query(sql, function (err, rows, fields) {
 			if (err) throw err
 			callback(proper_obj(rows));
+			this.connection.end();
 		});
-		this.connection.end()
 	}
 	escape(str){
 		return this.mysql.escape(str);

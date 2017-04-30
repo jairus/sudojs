@@ -15,7 +15,6 @@ class Main extends SD_Controller{
 		this.main_model.hello();
 		debug(this, function(out){
 			var sql = "select UNIX_TIMESTAMP() as `timestamp`";
-			//var sql = "select * from `tokens` where `id`= '"+db_escape("1")+"' ";
 			out += sql;
 			this.db.query(sql,  function(rows){
 				out += pre(rows);
