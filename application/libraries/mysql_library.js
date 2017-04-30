@@ -1,13 +1,16 @@
 //mysql library
-class MySQL_library extends Library{
+class MySQL_library extends SD_Library{
 	constructor(args){
 		super(args);
+	}
+	init(db){
+		if(db == null) db = "default";
 		this.mysql = require('mysql');
 		this.connection = this.mysql.createConnection({
-		  host     : SD.db['default']['hostname'],
-		  user     : SD.db['default']['username'],
-		  password : SD.db['default']['password'],
-		  database : SD.db['default']['database']
+		  host     : SD.db[db]['hostname'],
+		  user     : SD.db[db]['username'],
+		  password : SD.db[db]['password'],
+		  database : SD.db[db]['database']
 		});	
 	}
 	query(sql, callback){

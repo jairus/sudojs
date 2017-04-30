@@ -1,4 +1,4 @@
-class Main_library extends Library{
+class Main_library extends SD_Library{
 	constructor(args){
 		super(args);
 	}

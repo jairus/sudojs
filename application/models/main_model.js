@@ -1,4 +1,4 @@
-class Main_model extends Model{
+class Main_model extends SD_Model{
 	constructor(args){
 		super(args);
 	}

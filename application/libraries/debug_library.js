@@ -1,4 +1,4 @@
-class Debug_library extends Library{
+class Debug_library extends SD_Library{
 	constructor(args){
 		super(args);
 	}

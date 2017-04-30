@@ -1,4 +1,4 @@
-class Sub extends Controller{
+class Sub extends SD_Controller{
 	constructor(args){
 		super(args);
 	}

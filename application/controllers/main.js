@@ -1,4 +1,4 @@
-class Main extends Controller{
+class Main extends SD_Controller{
 	constructor(args){
 		super(args);
 		//load some models and libraries
@@ -6,6 +6,7 @@ class Main extends Controller{
 		this.main_library = this.load.library("main_library");
 		this.debug = this.load.library("debug_library");
 		this.db = this.load.library("mysql_library");
+		this.db.init("default");
 	}
 	//default 
 	index(){
