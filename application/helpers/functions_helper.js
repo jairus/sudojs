@@ -22,3 +22,67 @@ debug = function(args, callback){
 		callback(out);
 	});
 }
+print_r = function (obj, indent){
+	obj = proper_obj(obj);
+	var result = "";
+	if (indent == null){ 
+		indent = ""
+		if(typeof obj =="object"){
+			result += "{\n";
+			result += print_r(obj, indent + "   ");
+			result += "\n}\n";
+		}
+		else{
+			result += typeof(obj)+" : "+obj;
+		}
+	}
+	else{
+		for (var property in obj){
+			var value = obj[property];
+			if (typeof value == 'string')
+				value = "'" + value + "'";
+			else if (typeof value == 'object'){
+				if (value instanceof Array){
+					// Just let JS convert the Array to a string!
+					value = "[ " + value + " ]";
+				}
+				else{
+					// Recursive dump
+					// (replace "  " by "\t" or something else if you prefer)
+					var od = print_r(value, indent + "  ");
+					// If you like { on the same line as the key
+					//value = "{\n" + od + "\n" + indent + "}";
+					// If you prefer { and } to be aligned
+					value = "\n" + indent + "{\n" + od + "\n" + indent + "}";
+				}
+			}
+			result += indent + "[" + property + "] "+typeof(obj[property])+" : " + value + ",\n";
+		}
+	}
+	return result.replace(/,\n$/, "");
+}
+
+pre = function(obj){
+	return "<pre>"+print_r(obj)+"</pre>";
+}
+
+proper_obj = function(obj){
+	obj = JSON.stringify(obj);
+	obj = JSON.parse(obj);
+	return obj;
+}
+
+trim = function(s, mask) {
+    while (~mask.indexOf(s[0])) {
+        s = s.slice(1);
+    }
+    while (~mask.indexOf(s[s.length - 1])) {
+        s = s.slice(0, -1);
+    }
+    return s;
+}
+
+db_escape = function(str){
+	var mysql = require('mysql');
+	return trim(mysql.escape(str), "'");
+}

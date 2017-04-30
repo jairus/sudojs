@@ -1,12 +1,11 @@
 class Main extends Controller{
 	constructor(args){
-		console.log("call super");
 		super(args);
-
 		//load some models and libraries
 		this.main_model = this.load.model("main_model");
 		this.main_library = this.load.library("main_library");
 		this.debug = this.load.library("debug_library");
+		this.db = this.load.library("mysql_library");
 	}
 	//default 
 	index(){
@@ -14,8 +13,15 @@ class Main extends Controller{
 		var route = this.route;
 		this.main_model.hello();
 		debug(this, function(out){
-			res.send(out);
-		});
+			var sql = "select UNIX_TIMESTAMP() as `timestamp`";
+			//var sql = "select * from `tokens` where `id`= '"+db_escape("1")+"' ";
+			out += sql;
+			this.db.query(sql,  function(rows){
+				out += pre(rows);
+				res.send(out);
+			});
+			
+		}.bind(this));
 	}
 	//wee page
 	wee(){
