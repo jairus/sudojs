@@ -18,10 +18,11 @@ request = function(dis, callback){
 	ret["CONTROLLER_FILE_PATH"] = args.controllerFilePath;
 	ret["FUNCTION"] = args.controllerFunction;
 	ret["METHOD"] = req.method;
-	ret["GET"] = JSON.stringify(req.query);
+	ret["GET"] = req.query;
 	//x-www-form-urlencoded
-	ret["POST"] = JSON.stringify(req.body);
-	ret["PARAMS"] = JSON.stringify(req.params);
+	ret["PUT"] = req.body;
+	ret["POST"] = req.body;
+	ret["PARAMS"] = req.params;
 	var multiparty = require('multiparty');
 	var form = new multiparty.Form();
 	form.parse(req, function(err, fields, files) {

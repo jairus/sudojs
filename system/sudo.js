@@ -9,9 +9,9 @@ SD.db = require('../application/config/database.js');
 SD.autoload = require('../application/config/autoload.js');
 SD.routes = require('../application/config/routes.js');
 //global base classes
-Controller = require('./baseclasses.js');
-Model = require('./baseclasses.js');
-Library = require('./baseclasses.js');
+SD_Controller = require('./baseclasses.js');
+SD_Model = require('./baseclasses.js');
+SD_Library = require('./baseclasses.js');
 
 class Sudo{
 	constructor(app){
