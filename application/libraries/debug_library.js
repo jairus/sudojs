@@ -6,20 +6,23 @@ class Debug_library extends SD_Library{
 		var res = this.res;
 		var req = this.req;
 		var route = this.route;
-		var out = "ROUTE: "+route+"<br />";
-		out += "CONTROLLER FILE PATH: "+this.args.controllerFilePath+"<br />";
-		out += "FUNCTION: "+this.args.controllerFunction+"<br />";
-		out += "METHOD: "+this.req.method+"<br />";
-		out += "GET: "+JSON.stringify(req.query)+"<br />";
+		
+		var ret = {};
+		
+		ret["ROUTE"] = route;
+		ret["CONTROLLER FILE PATH"] = this.args.controllerFilePath;
+		ret["FUNCTION"] = this.args.controllerFunction;
+		ret["METHOD"] = this.req.method;
+		ret["GET"] = JSON.stringify(req.query);
 		//x-www-form-urlencoded
-		out += "POST: "+JSON.stringify(this.req.body)+"<br />";
-		out += "PARAMS: "+JSON.stringify(req.params)+"<br />";
+		ret["POST"] = JSON.stringify(this.req.body);
+		ret["PARAMS"] = JSON.stringify(req.params);
 		var multiparty = require('multiparty');
 		var form = new multiparty.Form();
 		form.parse(req, function(err, fields, files) {
 			// fields fields fields
-			out += "multiparty: "+fields+"<br />";
-			res.send(out);
+			ret["multiparty"] = fields;
+			res.send(pre(ret));
 		});
 	}
 }

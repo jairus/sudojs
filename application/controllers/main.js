@@ -4,7 +4,6 @@ class Main extends SD_Controller{
 		//load some models and libraries
 		this.main_model = this.load.model("main_model");
 		this.main_library = this.load.library("main_library");
-		this.debug = this.load.library("debug_library");
 		this.db = this.load.library("mysql_library");
 		this.db.init("default");
 	}
@@ -13,7 +12,9 @@ class Main extends SD_Controller{
 		var res = this.res;
 		var route = this.route;
 		this.main_model.hello();
-		debug(this, function(out){
+		request(this, function(ret){
+			var out = "";
+			out += pre(ret);
 			var sql = "select UNIX_TIMESTAMP() as `timestamp`";
 			out += sql;
 			this.db.query(sql,  function(rows){

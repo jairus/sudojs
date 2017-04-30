@@ -1,25 +1,33 @@
 help = function(){
 	console.log("help");
 }
-
-debug = function(args, callback){
+//debug request values
+debug = function(dis, callback){
+	request(dis, function(ret){
+		callback(pre(ret));
+	})
+}
+//put request values in an array
+request = function(dis, callback){
+	var args = dis.args;
 	var res = args.res;
 	var req = args.req;
 	var route = args.route;
-	var out = "ROUTE: "+route+"<br />";
-	out += "CONTROLLER FILE PATH: "+args.args.controllerFilePath+"<br />";
-	out += "FUNCTION: "+args.args.controllerFunction+"<br />";
-	out += "METHOD: "+args.req.method+"<br />";
-	out += "GET: "+JSON.stringify(req.query)+"<br />";
+	var ret = {};
+	ret["ROUTE"] = route;
+	ret["CONTROLLER_FILE_PATH"] = args.controllerFilePath;
+	ret["FUNCTION"] = args.controllerFunction;
+	ret["METHOD"] = req.method;
+	ret["GET"] = JSON.stringify(req.query);
 	//x-www-form-urlencoded
-	out += "POST: "+JSON.stringify(args.req.body)+"<br />";
-	out += "PARAMS: "+JSON.stringify(req.params)+"<br />";
+	ret["POST"] = JSON.stringify(req.body);
+	ret["PARAMS"] = JSON.stringify(req.params);
 	var multiparty = require('multiparty');
 	var form = new multiparty.Form();
 	form.parse(req, function(err, fields, files) {
 		// fields fields fields
-		out += "multiparty: "+fields+"<br />";
-		callback(out);
+		ret["multiparty"] = fields;
+		callback(ret);
 	});
 }
 print_r = function (obj, indent){
