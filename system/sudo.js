@@ -15,6 +15,8 @@ SD_Library = require('./baseclasses.js');
 
 class Sudo{
 	constructor(app){
+		var trim = this.trim;
+		var log = this.log;
 		var port = SD.config['port'];
 		var routeindex;
 		var autoloadindex;
@@ -77,9 +79,9 @@ class Sudo{
 					//auto load models
 					/*
 					for(autoloadindex in autoload){
-						console.log(autoloadindex);
+						log(autoloadindex);
 						if(autoloadindex=="models"){
-							console.log(autoloadindex);
+							log(autoloadindex);
 							var load = autoload[autoloadindex];
 							for(var i=0; i<load.length; i++){
 								args[load[i]] = args.load.model(load[i]);
@@ -113,7 +115,7 @@ class Sudo{
 							return;
 						}
 					}
-					console.log("routeindex: "+this.routeindex+", path: "+preq.path, ", controller file: "+file)
+					log("routeindex: "+this.routeindex+", path: "+preq.path, ", controller file: "+file)
 					return;
 				}.bind(cbBind));
 			}
@@ -173,9 +175,9 @@ class Sudo{
 			//auto load models
 			/*
 			for(autoloadindex in autoload){
-				console.log(autoloadindex);
+				log(autoloadindex);
 				if(autoloadindex=="models"){
-					console.log(autoloadindex);
+					log(autoloadindex);
 					var load = autoload[autoloadindex];
 					for(var i=0; i<load.length; i++){
 						args[load[i]] = args.load.model(load[i]);
@@ -195,13 +197,25 @@ class Sudo{
 				pres.send("<b>"+controllerFunction+"</b> in controller <b>"+controllerFileName+".js</b> is not a function");
 				return;
 			}
-			console.log("routeindex: *, path: "+preq.path, ", controller file: "+file)
+			log("routeindex: *, path: "+preq.path, ", controller file: "+file)
 			return;
 		});
 		
 		app.listen(port, function () {
-		  console.log('App listening on port '+port+'!')
+		  log('App listening on port '+port+'!')
 		});
+	}
+	log(str){
+		console.log("[SUDOJS] "+str);
+	}
+	trim(s, mask) {
+		while (~mask.indexOf(s[0])) {
+			s = s.slice(1);
+		}
+		while (~mask.indexOf(s[s.length - 1])) {
+			s = s.slice(0, -1);
+		}
+		return s;
 	}
 }
 module.exports = Sudo;
