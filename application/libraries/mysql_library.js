@@ -19,7 +19,7 @@ class MySQL_library extends SD_Library{
 			if (err) throw err
 			callback(proper_obj(rows));
 			this.connection.end();
-		});
+		}.bind(this));
 	}
 	escape(str){
 		return this.mysql.escape(str);
