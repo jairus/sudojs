@@ -11,7 +11,7 @@ class loader{
 			return obj;
 		}
 		else{
-			res.send("Model <b>"+name+".js</b> file not found");
+			this.res.send("Model <b>"+name+".js</b> file not found");
 			return false;
 		}			
 	}
@@ -21,12 +21,11 @@ class loader{
 			return obj;
 		}
 		else{
-			res.send("Library <b>"+name+".js</b> file not found");
+			this.res.send("Library <b>"+name+".js</b> file not found");
 			return false;
 		}
 	}
 	load(folder, name){
-		var res = this.res;
 		var fs = require('fs');
 		var path = require('path');
 		name = name.trim();
