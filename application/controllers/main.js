@@ -11,18 +11,20 @@ class Main extends SD_Controller{
 	index(){
 		var res = this.res;
 		var route = this.route;
+		var db = this.db;
 		this.main_model.hello();
 		request(this, function(ret){
 			var out = "";
 			out += pre(ret);
 			var sql = "select UNIX_TIMESTAMP() as `timestamp`";
 			out += sql;
-			this.db.query(sql,  function(rows){
+			db.query(sql).then(function(rows){
 				out += pre(rows);
 				res.send(out);
+				db.end();
 			});
 			
-		}.bind(this));
+		});
 	}
 	//wee page
 	wee(){

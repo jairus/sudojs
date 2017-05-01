@@ -38,7 +38,7 @@ print_r = function (obj, indent){
 		indent = ""
 		if(typeof obj =="object"){
 			result += "{\n";
-			result += print_r(obj, indent + "   ");
+			result += print_r(obj, indent + "    ");
 			result += "\n}\n";
 		}
 		else{
@@ -52,16 +52,12 @@ print_r = function (obj, indent){
 				value = "'" + value + "'";
 			else if (typeof value == 'object'){
 				if (value instanceof Array){
-					// Just let JS convert the Array to a string!
-					value = "[ " + value + " ]";
+					value = "\n"+indent+"[\n" + print_r(value, indent + "    ") + "\n"+indent+"]";
 				}
 				else{
 					// Recursive dump
 					// (replace "  " by "\t" or something else if you prefer)
-					var od = print_r(value, indent + "  ");
-					// If you like { on the same line as the key
-					//value = "{\n" + od + "\n" + indent + "}";
-					// If you prefer { and } to be aligned
+					var od = print_r(value, indent + "    ");
 					value = "\n" + indent + "{\n" + od + "\n" + indent + "}";
 				}
 			}
@@ -94,4 +90,40 @@ trim = function(s, mask) {
 db_escape = function(str){
 	var mysql = require('mysql');
 	return trim(mysql.escape(str), "'");
+}
+
+isset = function(v, strict){
+	//not strict
+	if(typeof strict == "undefined" || strict==""){
+		if(typeof v == "undefined"){
+			return false;
+		}
+		else if(v == ""){
+			return false;
+		}
+		else if(v == false){
+			return false;
+		}
+		else if(v == 0){
+			return false;
+		}
+		else if(v == null){
+			return false;
+		}
+		else if(!v){
+			return false;
+		}
+		else{
+			return true;
+		}
+	}
+	//strict
+	else{
+		if(typeof v == "undefined"){
+			return false;
+		}
+		else{
+			return true;
+		}
+	}
 }
