@@ -26,7 +26,8 @@ class MySQL_library extends SD_Library{
 		var prom = new this.Promise(function(resolve, reject){
 			this.connection.query(sql, function (err, rows, fields) {		
 				if(isset(err)){
-					reject(err);
+					console.log(err);
+					reject(proper_obj(err));
 				}
 				else{
 					resolve(proper_obj(rows));
