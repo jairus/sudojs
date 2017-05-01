@@ -14,16 +14,25 @@ class MySQL_library extends SD_Library{
 			  password : SD.db[db]['password'],
 			  database : SD.db[db]['database']
 			});
-			this.connection.connect();
+			try{
+				this.connection.connect();
+			}
+			catch(e){
+			
+			}
 		}
 	}
 	query(sql){
 		var prom = new this.Promise(function(resolve, reject){
-			this.connection.query(sql, function (err, rows, fields) {
-				if (err) throw err
-				resolve(proper_obj(rows));
-				//this.connection.end();
+			this.connection.query(sql, function (err, rows, fields) {		
+				if(isset(err)){
+					reject(err);
+				}
+				else{
+					resolve(proper_obj(rows));
+				}
 			}.bind(this));
+			
 		}.bind(this));
 		return prom;
 	}
