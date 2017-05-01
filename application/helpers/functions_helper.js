@@ -35,8 +35,11 @@ print_r = function (obj, indent){
 	obj = proper_obj(obj);
 	var result = "";
 	if (indent == null){ 
-		indent = ""
-		if(typeof obj =="object"){
+		indent = "";
+		if (obj instanceof Array){
+			result = "\n"+indent+"[\n" + print_r(obj, indent + "    ") + "\n"+indent+"]";
+		}
+		else if(typeof obj =="object"){
 			result += "{\n";
 			result += print_r(obj, indent + "    ");
 			result += "\n}\n";
@@ -72,9 +75,9 @@ pre = function(obj){
 }
 
 proper_obj = function(obj){
-	obj = JSON.stringify(obj);
-	obj = JSON.parse(obj);
-	return obj;
+	var objr = JSON.stringify(obj);
+	objr = JSON.parse(objr);
+	return objr;
 }
 
 trim = function(s, mask) {
@@ -127,3 +130,4 @@ isset = function(v, strict){
 		}
 	}
 }
+
