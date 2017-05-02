@@ -6,7 +6,6 @@ class MySQL_library extends SD_Library{
 	init(db){
 		if(db == null) db = "default";
 		this.mysql = require('mysql');
-		this.Promise = require('promise');
 		if(isset(SD.db[db]['hostname'])){
 			this.connection = this.mysql.createConnection({
 			  host     : SD.db[db]['hostname'],
@@ -23,10 +22,11 @@ class MySQL_library extends SD_Library{
 		}
 	}
 	query(sql){
-		var prom = new this.Promise(function(resolve, reject){
+		var promise = require('promise');
+		var prom = new promise(function(resolve, reject){
 			this.connection.query(sql, function (err, rows, fields) {		
 				if(isset(err)){
-					console.log(err);
+					SD.log(err);
 					reject(proper_obj(err));
 				}
 				else{
