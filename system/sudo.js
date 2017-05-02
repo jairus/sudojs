@@ -14,8 +14,13 @@ SD_Model = require('./baseclasses.js');
 SD_Library = require('./baseclasses.js');
 
 var bunyan = require('bunyan');
-log = bunyan.createLogger({name: "Collective"});
-//log.info("hello"); 
+bunyanlog = bunyan.createLogger({name: "Collective"});
+
+//SD log function
+SD.log = function(str){
+	console.log(str);
+	//bunyanlog.info(str);
+}
 
 class Sudo{
 	constructor(app){
