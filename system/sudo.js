@@ -58,7 +58,7 @@ class Sudo{
 					var routeindex = this.routeindex;
 					var controller = controllers[this.routeindex];	
 					var controllerArr = this.controllerArr;
-					if(controllerArr.length==2){
+					if(controllerArr.length<=2){
 						var controllerFileName = controllerArr[0];		
 						var controllerFunction = controllerArr[1];
 						var file = path.dirname(__filename)+'/../application/controllers/'+controllerFileName+'.js';
@@ -140,7 +140,7 @@ class Sudo{
 				controllerArr = controllerArr.substring(1, controllerArr.length);
 			}
 			controllerArr = controllerArr.split("/");
-			if(controllerArr.length==2){
+			if(controllerArr.length<=2){
 				var controllerFileName = controllerArr[0];		
 				var controllerFunction = controllerArr[1];
 				var file = path.dirname(__filename)+'/../application/controllers/'+controllerFileName+'.js';
@@ -168,7 +168,7 @@ class Sudo{
 				}
 				controllerArr = SD.routes[routeindex];
 				controllerArr = controllerArr.split("/");
-				if(controllerArr.length==2){
+				if(controllerArr.length<=2){
 					controllerFileName = controllerArr[0];		
 					controllerFunction = controllerArr[1];
 					file = path.dirname(__filename)+'/../application/controllers/'+controllerFileName+'.js';
