@@ -49,6 +49,7 @@ class Sudo{
 			}
 		}
 		for(routeindex in SD.routes){
+			SD.log(routeindex);
 			if(routeindex!="*"){
 				var cbBind = {};
 				cbBind.routeindex = routeindex;
@@ -69,9 +70,10 @@ class Sudo{
 						var file = path.dirname(__filename)+'/../application/controllers/'+controllerFileName+'.js';
 					}
 					else{
-						var controllerFunction = controllerArr[controllerArr.length-1];
-						delete controllerArr[controllerArr.length-1];
-						var controllerFileName = trim(controllerArr.join("/"), "/");	
+						var controllerArrTemp = JSON.parse(JSON.stringify(controllerArr));
+						var controllerFunction = controllerArrTemp[controllerArrTemp.length-1];
+						delete controllerArrTemp[controllerArrTemp.length-1];
+						var controllerFileName = trim(controllerArrTemp.join("/"), "/");	
 						var file = path.dirname(__filename)+'/../application/controllers/'+controllerFileName+'.js';
 					}
 					//check if controller file exists
@@ -132,7 +134,7 @@ class Sudo{
 							return;
 						}
 					}
-					log("routeindex: "+this.routeindex+", path: "+preq.path, ", controller file: "+file)
+					log("path: "+preq.path+", routeindex: "+routeindex+", function: "+controllerFunction+", controller file: "+file+", ")
 					return;
 				}.bind(cbBind));
 			}
@@ -151,10 +153,11 @@ class Sudo{
 				var file = path.dirname(__filename)+'/../application/controllers/'+controllerFileName+'.js';
 			}
 			else{
-				var controllerFunction = controllerArr[controllerArr.length-1];
-				delete controllerArr[controllerArr.length-1];
-				var controllerFileName = trim(controllerArr.join("/"), "/");	
-				var file = path.dirname(__filename)+'/../application/controllers/'+controllerFileName+'.js';
+				var controllerArrTemp = JSON.parse(JSON.stringify(controllerArr));
+				var controllerFunction = controllerArrTemp[controllerArrTemp.length-1];
+				delete controllerArrTemp[controllerArrTemp.length-1];
+				var controllerFileName = trim(controllerArrTemp.join("/"), "/");	
+				var file = path.dirname(__filename)+'/../application/controllers/'+controllerFileName+'.js'
 			}
 			//check if controller file exists
 			if (fs.existsSync(file)) {
@@ -179,10 +182,11 @@ class Sudo{
 					file = path.dirname(__filename)+'/../application/controllers/'+controllerFileName+'.js';
 				}
 				else{
-					controllerFunction = controllerArr[controllerArr.length-1];
-					delete controllerArr[controllerArr.length-1];
-					controllerFileName = trim(controllerArr.join("/"), "/");	
-					file = path.dirname(__filename)+'/../application/controllers/'+controllerFileName+'.js';
+					var controllerArrTemp = JSON.parse(JSON.stringify(controllerArr));
+					var controllerFunction = controllerArrTemp[controllerArrTemp.length-1];
+					delete controllerArrTemp[controllerArrTemp.length-1];
+					var controllerFileName = trim(controllerArrTemp.join("/"), "/");	
+					var file = path.dirname(__filename)+'/../application/controllers/'+controllerFileName+'.js'
 				}
 				//check if controller file exists
 				if (fs.existsSync(file)) {
@@ -229,7 +233,7 @@ class Sudo{
 				pres.send("<b>"+controllerFunction+"</b> in controller <b>"+controllerFileName+".js</b> is not a function");
 				return;
 			}
-			log("routeindex: *, path: "+preq.path, ", controller file: "+file)
+			log("routeindex: *, controller file: "+file+", path: "+preq.path)
 			return;
 		});
 		

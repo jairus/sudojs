@@ -80,19 +80,38 @@ proper_obj = function(obj){
 	return objr;
 }
 
-trim = function(s, mask) {
+trim = function(s, mask, iteration) {
+	if(!isset(mask)){
+		return s.trim();
+	}
+	n = 0;
     while (~mask.indexOf(s[0])) {
         s = s.slice(1);
+		n++;
+		if(isset(iteration)){
+			if(n>=iteration){
+				break;
+			}
+		}
     }
+	n = 0;
     while (~mask.indexOf(s[s.length - 1])) {
         s = s.slice(0, -1);
+		n++;
+		if(isset(iteration)){
+			if(n>=iteration){
+				break;
+			}
+		}
     }
     return s;
 }
 
+
+
 db_escape = function(str){
 	var mysql = require('mysql');
-	return trim(mysql.escape(str), "'");
+	return trim(mysql.escape(str), "'", 1);
 }
 
 isset = function(v, strict){
