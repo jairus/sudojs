@@ -254,7 +254,12 @@ class Sudo{
 	log(str){
 		var moment = require("moment");
 		var date = moment().format('YYYY-MM-DD HH:mm:ss');
-		SD.log("[SUDOJS "+date+"] "+str);
+		if(isset(cluster)&&isset(cluster.worker)&&isset(cluster.worker.id)){
+			SD.log("[SUDOJS "+date+" CPU"+cluster.worker.id+"] "+str);
+		}
+		else{
+			SD.log("[SUDOJS "+date+"] "+str);
+		}
 	}
 	trim(s, mask) {
 		while (~mask.indexOf(s[0])) {
