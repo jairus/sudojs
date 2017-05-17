@@ -14,6 +14,7 @@ request = function(dis, callback){
 	var req = args.req;
 	var route = args.route;
 	var ret = {};
+	ret['headers'] = req.headers;
 	ret["ROUTE"] = route;
 	ret["CONTROLLER_FILE_PATH"] = args.controllerFilePath;
 	ret["FUNCTION"] = args.controllerFunction;
@@ -149,4 +150,33 @@ isset = function(v, strict){
 		}
 	}
 }
+//substring
+substr = function(str, start, limit){
+	str += "";
+	if(isset(str)&&str.length>(start+1)){
+		var end = start + limit;
+		return str.substring(start, end);
+	}
+	else{
+		return "";
+	}
+}
+//string to timestamp
+strtotime = function(str){
+	return Math.floor((new Date(str)).getTime()/1000);
+}
+//get timestamp
+time = function(){
+	return Math.floor((new Date()).getTime()/1000);
+}
+//get milliseconds
+millitime = function(){
+	return (new Date()).getTime();
+}
+//check if numeric
+is_numeric = function(n){
+	return !isNaN(n);
+}
+
+
 
