@@ -14,12 +14,22 @@ SD_Model = require('./baseclasses.js');
 SD_Library = require('./baseclasses.js');
 
 var bunyan = require('bunyan');
-bunyanlog = bunyan.createLogger({name: "Collective"});
+var path = require('path');
+//bunyanlog = bunyan.createLogger({name: "Collective"});
+bunyanlog = bunyan.createLogger({
+    name: 'Sudo',
+    streams: [{
+        type: 'rotating-file',
+        path: path.dirname(__filename)+'/logs/Sudo.log',
+        period: '1d',   // daily rotation
+        count: 20        // keep 3 back copies
+    }]
+});
 
 //SD log function
 SD.log = function(str){
 	console.log(str);
-	//bunyanlog.info(str);
+	bunyanlog.info(str);
 }
 
 class Sudo{
@@ -242,7 +252,9 @@ class Sudo{
 		});
 	}
 	log(str){
-		console.log("[SUDOJS] "+str);
+		var moment = require("moment");
+		var date = moment().format('YYYY-MM-DD HH:mm:ss');
+		SD.log("[SUDOJS "+date+"] "+str);
 	}
 	trim(s, mask) {
 		while (~mask.indexOf(s[0])) {
