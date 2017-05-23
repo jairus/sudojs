@@ -1,8 +1,0 @@
-{"name":"Sudo","hostname":"MSI-JAI","pid":7832,"level":30,"msg":"/wee","time":"2017-05-17T14:30:44.312Z","v":0}
-{"name":"Sudo","hostname":"MSI-JAI","pid":7832,"level":30,"msg":"/wee/:var1","time":"2017-05-17T14:30:44.321Z","v":0}
-{"name":"Sudo","hostname":"MSI-JAI","pid":7832,"level":30,"msg":"/wee/:var1/:var2","time":"2017-05-17T14:30:44.327Z","v":0}
-{"name":"Sudo","hostname":"MSI-JAI","pid":7832,"level":30,"msg":"/main/waka","time":"2017-05-17T14:30:44.332Z","v":0}
-{"name":"Sudo","hostname":"MSI-JAI","pid":7832,"level":30,"msg":"/main/waka/:var","time":"2017-05-17T14:30:44.342Z","v":0}
-{"name":"Sudo","hostname":"MSI-JAI","pid":7832,"level":30,"msg":"/","time":"2017-05-17T14:30:44.343Z","v":0}
-{"name":"Sudo","hostname":"MSI-JAI","pid":7832,"level":30,"msg":"*","time":"2017-05-17T14:30:44.345Z","v":0}
-{"name":"Sudo","hostname":"MSI-JAI","pid":7832,"level":30,"msg":"[SUDOJS 2017-05-17 22:30:44] App listening on port 3000!","time":"2017-05-17T14:30:44.477Z","v":0}

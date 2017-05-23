@@ -178,5 +178,11 @@ is_numeric = function(n){
 	return !isNaN(n);
 }
 
+defaultRes = function (res){
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "Content-Type, token");
+	var out = "Collective API 1.0";
+	res.status(204).send(out);
+}
 
 

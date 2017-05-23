@@ -1,5 +1,5 @@
 //author: Jairus Bondoc
-//class: Sudo
+//class: Sudojs
 //description: Code Igniter inspired class to load controllers from routes array config
 
 //global variables
@@ -144,7 +144,21 @@ class Sudo{
 							return;
 						}
 					}
-					log("path: "+preq.path+", routeindex: "+routeindex+", function: "+controllerFunction+", controller file: "+file+", ")
+					//log("path: "+preq.path+", routeindex: "+routeindex+", function: "+controllerFunction+", controller file: "+file+", ")
+					
+					var headers = "";
+					if(isset(preq.headers)){
+						headers = JSON.stringify(preq.headers);
+					}
+					var query = "";
+					if(isset(preq.query)){
+						query = JSON.stringify(preq.query);
+					}
+					var body = "";
+					if(isset(preq.body)){
+						body = JSON.stringify(preq.body);
+					}
+					log("\n headers: "+headers+"\n method: "+preq.method+"\n path: "+preq.path+"\n query: "+query+"\n body: "+body+"\n routeindex: "+routeindex+"\n controller file: "+file+"\n function: "+controllerFunction);
 					return;
 				}.bind(cbBind));
 			}
@@ -243,7 +257,20 @@ class Sudo{
 				pres.send("<b>"+controllerFunction+"</b> in controller <b>"+controllerFileName+".js</b> is not a function");
 				return;
 			}
-			log("routeindex: *, controller file: "+file+", path: "+preq.path)
+			var routeindex = "*";
+			var headers = "";
+			if(isset(preq.headers)){
+				headers = JSON.stringify(preq.headers);
+			}
+			var query = "";
+			if(isset(preq.query)){
+				query = JSON.stringify(preq.query);
+			}
+			var body = "";
+			if(isset(preq.body)){
+				body = JSON.stringify(preq.body);
+			}
+			log("\n headers: "+headers+"\n method: "+preq.method+"\n path: "+preq.path+"\n query: "+query+"\n body: "+body+"\n routeindex: "+routeindex+"\n controller file: "+file+"\n function: "+controllerFunction);
 			return;
 		});
 		
@@ -255,10 +282,10 @@ class Sudo{
 		var moment = require("moment");
 		var date = moment().format('YYYY-MM-DD HH:mm:ss');
 		if(isset(cluster)&&isset(cluster.worker)&&isset(cluster.worker.id)){
-			SD.log("[SUDOJS "+date+" CPU"+cluster.worker.id+"] "+str);
+			SD.log("[SUDOJS "+date+" CPU"+cluster.worker.id+"] "+str+"\n\n");
 		}
 		else{
-			SD.log("[SUDOJS "+date+"] "+str);
+			SD.log("[SUDOJS "+date+"] "+str+"\n\n");
 		}
 	}
 	trim(s, mask) {
